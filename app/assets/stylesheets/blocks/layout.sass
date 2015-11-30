@@ -1,0 +1,36 @@
+@import "../bem"
+
++b(layout)
+
++e(header)
+  text-align: center
+  padding: 20px
+  a
+    padding: 8px 12px
+    background: #ddd
+    color: #333
+    font-weigth: bold
+    font-size: 2em
+    &:hover
+      text-decoration: none
+      background: white
+
++e(footer)
+  padding: 20px
+  text-align: center
+  a
+    padding: 8px 12px
+    background: #ddd
+    color: #333
+    font-weigth: bold
+    font-size: 2em
+    &:hover
+      text-decoration: none
+      background: white
+
++e(map-wrapper)
+  height: 100%
+
+@media (max-width: 768px)
+  +e(map-wrapper)
+    height: 300px

@@ -1,0 +1,60 @@
+.col-sm-6.col-xs-12
+  .apartment__list-map#map
+  script type="text/javascript"
+    | function changeList (b) {
+    |   coords = { sw: { lat: b.getSouthWest().lat(), lng: b.getSouthWest().lng() },
+    |              ne: { lat: b.getNorthEast().lat(), lng: b.getNorthEast().lng() } };
+    |   $.get( "#{apartment_list_path}", { coords: coords }).done(function( data ) {
+    |     $('.apartment__list').html(data);
+    |   });
+    | }
+
+    | function initMap() {
+    |   var map = new google.maps.Map(document.getElementById('map'), {
+    |     center: { lat: 51.506594, lng: -0.127223 },
+    |     scrollwheel: true,
+    |     zoom: 11,
+    |     styles: [
+    |         {
+    |           featureType: "transit.station",
+    |           stylers: [
+    |             { visibility: "off" }
+    |           ]
+    |         }
+    |       ]
+    |   });
+
+    | google.maps.event.addListener(map, 'dragend', function() {
+    |   changeList(map.getBounds());
+    | });
+
+    | google.maps.event.addListener(map, 'zoom_changed', function() {
+    |   changeList(map.getBounds());
+    | });
+
+    | google.maps.event.addListener(map, 'idle', function() {
+    |   changeList(map.getBounds());
+    | });
+
+    - @apartments.each do |a|
+      | var marker#{a.id} = new google.maps.Marker({
+      |   position: {lat: #{a.lat}, lng: #{a.lng} },
+      |   animation: google.maps.Animation.DROP,
+      |   map: map
+      | });
+
+      | var infowindow#{a.id} = new google.maps.InfoWindow({
+      |   content: '<a href="#{apartment_show_path(a)}"><div><b>#{a.title.truncate(30)}</b></div><img src="#{a.picture.url(:map_thumb)}"></a>'
+      | });
+
+      | marker#{a.id}.addListener('click', function() {
+      |   infowindow#{a.id}.open(map, marker#{a.id});
+      | });
+
+    | }
+
+
+  script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWaTwAZoBlzmzTzRnQ6HeruMkreEP9ThU&callback=initMap"
+
+.col-sm-6.col-xs-12.apartment__list
+  h3 Loading...

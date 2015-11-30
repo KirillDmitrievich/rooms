@@ -1,0 +1,18 @@
+.apartment__list
+  - if apartments.blank?
+    h2 There are no propositions in this area
+  - else
+    - apartments.each do |a|
+      = link_to apartment_show_path(a) do
+        .row
+          .col-xs-12
+            h2= a.title unless a.title.blank?
+            .row
+              .col-md-2.col-xs-12
+                .apartment__picture= image_tag a.picture.url(:thumb) unless a.picture.blank?
+              .col-md-7.col-xs-12
+                h6.apartment__address= a.address unless a.address.blank?
+                .apartment__description= a.description unless a.description.blank?
+                .apartment__options= a.options unless a.options.blank?
+              .col-md-3.col-xs-12
+                .apartment__price= a.price unless a.price.blank?

@@ -1,0 +1,45 @@
+script src="http://maps.googleapis.com/maps/api/js?sensor=false&callback=latlng_init"
+.apartment-form
+  h1 Add appartment
+
+  = form_for(@apartment, as: :apartment, url: apartment_create_path(@apartment), html: { method: :post }) do |f|
+    .row.apartment-form__fieldset
+      .col-xs-12
+        = f.label :title, "Title"
+        = f.text_field :title, class: "apartment-form__input"
+
+    .row.apartment-form__fieldset
+      .col-xs-12
+        = f.label :description, "Descriprion"
+        = f.text_area :description, class: "apartment-form__input"
+
+    .row.apartment-form__fieldset
+      .col-xs-12
+        = f.label :price, "Price"
+        = f.text_field :price, class: "apartment-form__input"
+
+    .row.apartment-form__fieldset
+      .col-xs-12
+        = f.label :options, "Options"
+        = f.text_field :options, class: "apartment-form__input"
+
+    .row.apartment-form__fieldset
+      .col-xs-12
+        = f.label :address, "Address"
+        = f.text_field :address, class: "apartment-form__input"
+
+    .row.apartment-form__fieldset
+      .col-xs-12
+        = f.label :picture, "Picture"
+        = f.file_field :picture, class: "apartment-form__picture-input"
+
+    .row
+      .col-xs-12
+        .apartment-form__hint Move the marker, or double click on the map.
+        .gllpLatlonPicker
+          .apartment-form__map.gllpMap Google Maps
+          = f.hidden_field :lat, class: "gllpLatitude"
+          = f.hidden_field :lng, class: "gllpLongitude"
+    .row.apartment-form__fieldset
+      .col-xs-12
+        = f.submit :create, class: 'btn btn-success'

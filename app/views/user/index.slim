@@ -1,0 +1,22 @@
+h1.profile__title Profile
+h2.profile__name= current_user.name
+
+.profile__new
+  = link_to "Add proposition", apartment_new_path, class: 'btn btn-primary'
+
+- @apartments.each do |a|
+  .row
+    .col-xs-12
+      h2= a.title unless a.title.blank?
+      .row
+        .col-md-2.col-xs-12
+          .apartment__picture= image_tag a.picture.url(:thumb) unless a.picture.blank?
+        .col-md-5.col-xs-12
+          h6.apartment__address= a.address unless a.address.blank?
+          .apartment__description= a.description unless a.description.blank?
+          .apartment__options= a.options unless a.options.blank?
+        .col-md-3.col-xs-12
+          .apartment__price= a.price unless a.price.blank?
+        .col-md-2.col-xs-12
+          = link_to 'Edit',   apartment_edit_path(a), class: 'btn btn-primary'
+          = link_to 'Delete', apartment_delete_path(a), method: :delete, class: 'btn btn-danger'

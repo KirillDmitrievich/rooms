@@ -1,0 +1,18 @@
+h1
+  .col-sm-6.col-xs-12
+    = @apartment.title unless @apartment.title.blank?
+  .col-sm-6.col-xs-12.apartment__contact
+    = ('Contact: ' + mail_to(@apartment.user.email)).html_safe
+
+.row
+  .col-xs-12
+    .row
+      .col-md-6.col-xs-12
+        .apartment__picture= image_tag @apartment.picture.url unless @apartment.picture.blank?
+      .col-md-4.col-xs-12
+        h6.apartment__address= @apartment.address unless @apartment.address.blank?
+        .apartment__description= @apartment.description unless @apartment.description.blank?
+        .apartment__options= @apartment.options unless @apartment.options.blank?
+
+      .col-md-2.col-xs-12
+        .apartment__price= 'Price: ' + @apartment.price.to_s unless @apartment.price.blank?
